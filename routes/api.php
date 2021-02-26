@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('users/','UserController@store');
+Route::post('users/login','UserController@login');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::apiResource('posts', 'Api\PostController');
+    Route::post('users/logout','UserController@logout');
 });

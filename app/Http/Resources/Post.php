@@ -18,7 +18,8 @@ class Post extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
-            'created' => $this->created_at->diffForHumans()
+            'created' => $this->created_at->diffForHumans(),
+            'updated' => $this->updated_at->diffForHumans(),
         ];
     }
 }

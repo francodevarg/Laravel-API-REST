@@ -35,7 +35,7 @@ Route::get('profile/{user_id}',function($id){
     * ->with('category','image','tags')
     * ->withCount('comments')->get();
     */
-    $posts = $user->posts()->get();
+    $posts = $user->posts()->with('comments')->get();
 
     $data = [
         'user' => $user,

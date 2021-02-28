@@ -17,6 +17,32 @@ Route::post('users/','UserController@store');
 Route::post('users/login','UserController@login');
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::apiResource('posts', 'Api\PostController');
     Route::post('users/logout','UserController@logout');
+    
+    Route::apiResource('posts', 'Api\PostController');
+    
+});
+
+
+
+Route::get('profile/{user_id}',function($id){
+
+    $user = App\User::find($id);
+
+    /** 
+     * 
+    * $posts = $user->posts()
+    * ->with('category','image','tags')
+    * ->withCount('comments')->get();
+    */
+    $posts = $user->posts()->get();
+
+    $data = [
+        'user' => $user,
+        'posts' => $posts,
+    ];
+
+    return response()->json($data, 200);
+
+
 });

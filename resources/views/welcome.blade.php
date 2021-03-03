@@ -64,6 +64,16 @@
         </style>
     </head>
     <body>
+
+    <img src="{{ $user->image->url }}" class="float-left rounded-circle mr-2">
+    {{$user->name}}
+
+    @foreach($posts as $post)
+        <img src="{{ $post->image->url }}" class="float-left rounded-circle mr-2">
+        {{$post->title}}
+    @endforeach
+
+    {{$followers}}
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">

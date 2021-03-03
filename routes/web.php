@@ -16,3 +16,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/profile/{id}', function ($id) {
+
+	$user = App\User::find($id);
+
+	$posts  = $user->posts()
+		->with('image')
+		->withCount('comments')->get();
+
+	$followers = $user->followers()->get();
+
+
+	return view('welcome', [
+		'user'   => $user,
+		'posts'  => $posts,
+		'followers' => $followers
+	]);
+
+});

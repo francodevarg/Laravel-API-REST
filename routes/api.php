@@ -35,11 +35,20 @@ Route::get('profile/{user_id}',function($id){
     * ->with('category','image','tags')
     * ->withCount('comments')->get();
     */
-    $posts = $user->posts()->with('comments')->get();
-
+    $posts = $user->posts()
+    ->with('image')
+    ->withCount('comments')
+    ->get();
+    $user_avatar = $user->image()->get()->first();
+    $followers = $user->followers()->get();
+    $followings = $user->followings()->get();
+    
     $data = [
         'user' => $user,
+        'user_avatar' => $user_avatar,
         'posts' => $posts,
+        'followers' => $followers,
+        'followings' => $followings
     ];
 
     return response()->json($data, 200);

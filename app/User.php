@@ -44,4 +44,18 @@ class User extends Authenticatable
      public function posts(){
          return $this->hasMany(Post::class);
      }
+
+     public function image(){
+        return $this->morphOne(Image::class, 'imageable');
+     }
+
+    // users that are followed by this user
+    public function followings() {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id')->withTimestamps();
+    }
+
+    // users that follow this user
+    public function followers() {
+        return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id')->withTimestamps();
+    }
 }
